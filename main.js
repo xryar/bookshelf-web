@@ -66,19 +66,20 @@ function makeBook(bookObject) {
     container.setAttribute('data-testid', 'bookItem');
     container.append(bookContainer);
 
-    if(bookObject.isCompleted) {
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete';
+    deleteButton.classList.add('delete-button');
+    deleteButton.setAttribute('data-testid', 'bookItemDeleteButton');
+
+    if(bookObject.isComplete) {
         const undoButton = document.createElement('button');
         undoButton.innerText = 'Undo';
         undoButton.classList.add('undo-button');
+        undoButton.setAttribute('data-testid', 'bookItemIsCompleteButton');
 
         undoButton.addEventListener('click', () => {
             undoBookFromCompleted(bookObject.id);
         });
-
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'Delete';
-        deleteButton.classList.add('delete-button');
-        deleteButton.setAttribute('data-testid', 'bookItemDeleteButton');
         
         deleteButton.addEventListener('click', () => {
             removeBookFromCompleted(bookObject.id);
@@ -110,7 +111,7 @@ function addBookToCompleted(bookId) {
 
     if(bookTarget == null) return;
 
-    bookTarget.isCompleted = true;
+    bookTarget.isComplete = true;
     document.dispatchEvent(new Event(RENDER_EVENT));
     saveData();
 }
@@ -130,7 +131,7 @@ function undoBookFromCompleted(bookId) {
 
     if(bookTarget == null) return;
 
-    bookTarget.isCompleted = false;
+    bookTarget.isComplete = false;
     document.dispatchEvent(new Event(RENDER_EVENT));
     saveData();
 }
@@ -203,7 +204,7 @@ document.addEventListener(RENDER_EVENT, () => {
 
     for(const bookItem of books) {
         const bookElement = makeBook(bookItem);
-        if(bookItem.isCompleted === false) {
+        if(bookItem.isComplete === false) {
             unCompletedBookList.append(bookElement)
         } else {
             completedBookList.append(bookElement)
