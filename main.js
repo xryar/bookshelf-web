@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function addBook() {
     const titleBook = document.getElementById('bookFormTitle').value;
     const authorBook = document.getElementById('bookFormAuthor').value;
-    const yearBook = document.getElementById('bookFormYear').value;
+    const yearBook = parseInt(document.getElementById('bookFormYear').value);
     const isCompletedBook = document.getElementById('bookFormIsComplete').checked;
 
     const generatedID = generateId();
@@ -33,13 +33,13 @@ function generateId() {
     return +new Date();
 }
 
-function generateBookObject(id, title, author, year, isCompleted) {
+function generateBookObject(id, title, author, year, isComplete) {
     return {
         id,
         title,
         author,
         year,
-        isCompleted
+        isComplete
     }
 }
 
