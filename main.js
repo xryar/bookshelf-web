@@ -95,7 +95,11 @@ function makeBook(bookObject) {
             addBookToCompleted(bookObject.id);
         });
 
-        container.append(completedButton);
+        deleteButton.addEventListener('click', () => {
+            removeBookFromCompleted(bookObject.id);
+        });
+
+        container.append(completedButton, deleteButton);
     }
 
     return container;
